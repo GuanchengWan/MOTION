@@ -1,16 +1,32 @@
-
-# Description
-
-This repository provides the full implementation of MOTION (Multi-Sculpt EvOluTIONary Coarsening for Federated Continual Graph Learning), the first framework for incremental, privacy-preserving learning on dynamic, distributed graphs. It includes:
-
-- **Client-side G-TMSC module**: graph topology-preserving multi-expert coarsening that fuses structural metrics via similarity-guided scoring to retain key subgraph patterns.  
-- **Server-side G-EPAE module**: graph-aware evolving parameter adaptive engine that builds a topology-sensitive compatibility matrix to weight and integrate client updates, reducing aggregation conflicts.  
-- **Benchmark evaluation**: scripts to reproduce experiments on five real-world graph datasets (Cora, CiteSeer, PubMed, Amazon-Photo, CoAuthor-CS), demonstrating up to 30 % average accuracy gain over FedAvg and negative average forgetting rates.  
-- **Dependencies & usage**: PyTorch, PyG, CUDA; ready-to-run training and evaluation pipelines, with configurable hyperparameters for reduction rate and expert selection.
+# MOTION: Multi-Sculpt Evolutionary Coarsening for Federated Continual Graph Learning
 
 
-# How to run?
+Guancheng Wan, Fengyuan Ran, Ruikang Zhang, Wenke Huang, Xuankun Rong, Guibin Zhang, Yuxin Wu, Bo Du, Mang Ye
 
+<p align="center">
+  <img src="image.png" alt="MOTION Framework" width="800"/>
+</p>
+
+## ✨ Abstract
+Federated continual graph learning (FCGL) studies incremental learning on dynamic graphs distributed across clients. Existing approaches cannot simultaneously preserve graph topology across tasks and avoid server-side aggregation conflicts. MOTION introduces:
+- **G-TMSC** (Graph Topology-preserving Multi-Sculpt Coarsening) to retain critical subgraph structures via similarity-guided, multi-expert coarsening on clients.
+- **G-EPAE** (Graph-Aware Evolving Parameter Adaptive Engine) to adapt aggregation with a topology-sensitive compatibility matrix on the server, reducing conflicting updates.
+
+This design improves stability and generalization for FCGL while keeping privacy constraints.
+
+## 🚀 Getting Started
+### Requirements
+- Python 3.9+
+- PyTorch (GPU recommended)
+- PyTorch Geometric (PyG)
+- Common libs: numpy, scipy, scikit-learn, networkx, tqdm, ogb
+
+Install PyTorch and PyG per your CUDA/version from their official guides, then:
+```bash
+pip install -U numpy scipy scikit-learn networkx tqdm ogb
+```
+ 
+### Quick Start
 ```bash
 python main.py \
   --fed_algorithm MOTION \
@@ -20,30 +36,41 @@ python main.py \
   --num_rounds 1 \
   --skew_type label_skew \
   --num_classes_per_task 1 \
-  --num_classes 8 \
+  --num_classes 7 \
   --device_id 0 \
   --dirichlet_alpha 1.0 \
   --seed 0
 ```
-Arguments:
---fed_algorithm (str): federated learning algorithm to use (e.g. MOTION).
+## ⚙️ Key Hyperparameters
+- **dataset**: cora | citeseer | pubmed | ...
+- **model**: GNN backbone (default `GAT`). See `backbone/`.
+- **num_clients, num_rounds**: FL scale and communication rounds.
+- **skew_type**: data partition, e.g., `label_skew` or `domain_skew`.
+- **dirichlet_alpha**: non-IID degree (↑ more uniform).
+- **num_tasks, num_classes, num_classes_per_task**: FCGL scheduling.
+- **hidden_dim, num_layers, dropout, learning_rate, weight_decay**: GNN basics.
+- MOTION-specific: **reduction_rate**, **expert_select**, **node_reduction_rate**, **k_list**. See `args.py` for defaults.
+- Datasets are handled under `datasets/` and by default stored in `datasets/raw_data` (change via `--dataset_dir`).
+- Node classification task is the current default (`args.task=node_classification`).
+- Logs are saved to `logs/` (change via `--logs_dir`).
 
---dataset (str): graph dataset name (cora, citeseer, pubmed, etc.).
+##  Project Layout
+- `main.py`: entry point that parses `args` and launches `TaskFlow`.
+- `utils/taskflow.py`: dispatches to `tasks/node_classification_task.py`.
+- `tasks/`: training/evaluation pipelines for tasks.
+- `algorithm/MOTION.py` and `algorithm/`: MOTION core (G-TMSC, G-EPAE utils in `algorithm/utils/`).
+- `backbone/`: GNN backbones (e.g., `GAT.py`).
+- `datasets/`: loading, partitioning, processing utilities.
+- `logs/`: outputs.
 
---model (str): GNN backbone (GAT).
+##  Citation
+If you find this repository useful, please consider citing:
 
---num_clients (int): number of simulated federated clients.
-
---num_rounds (int): total communication rounds.
-
---skew_type (str): data partition strategy (label_skew).
-
---num_classes_per_task (int): number of classes assigned to each client’s local task.
-
---num_classes (int): total number of classes in the dataset.
-
---device_id (int): CUDA device index.
-
---dirichlet_alpha (float): concentration parameter for Dirichlet non-IID split (higher → more uniform).
-
---seed (int): random seed for reproducibility.
+```bibtex
+@inproceedings{MOTION_NeurIPS25,
+  title={{MOTION}: Multi-Sculpt Evolutionary Coarsening for Federated Continual Graph Learning},
+  author={Wan, Guancheng and Ran, Fengyuan and Zhang, Ruikang and Huang, Wenke and Rong, Xuankun and Zhang, Guibin and Wu, Yuxin and Du, Bo and Ye, Mang},
+  booktitle={NeurIPS},
+  year={2025}
+}
+```
