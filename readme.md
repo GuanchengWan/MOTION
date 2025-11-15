@@ -1,7 +1,7 @@
 # MOTION: Multi-Sculpt Evolutionary Coarsening for Federated Continual Graph Learning
 
 
-Guancheng Wan, Fengyuan Ran, Ruikang Zhang, Wenke Huang, Xuankun Rong, Guibin Zhang, Yuxin Wu, Bo Du, Mang Ye
+Guancheng Wan+, Fengyuan Ran+, Ruikang Zhang, Wenke Huang, Xuankun Rong, Guibin Zhang, Yuxin Wu, Bo Du, Mang Ye
 
 <p align="center">
   <img src="image.png" alt="MOTION Framework" width="800"/>
