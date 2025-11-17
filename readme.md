@@ -21,8 +21,6 @@
 
 ## 🔥 News
 
-<div align="center">
-
 🎉 **MOTION is accepted by NeurIPS 2025!** 🎉
 
 ---
@@ -57,7 +55,6 @@ MOTION tackles **Federated Continual Graph Learning (FCGL)**, enabling increment
 
 ## 💥 Highlights
 
-<div align="center">
 
 | ✨ Feature                             | 📝 Description                                                           |
 | -------------------------------------- | ------------------------------------------------------------------------ |
@@ -66,7 +63,6 @@ MOTION tackles **Federated Continual Graph Learning (FCGL)**, enabling increment
 | **Modular Architecture**         | Plug-in design for GNN backbones (GAT, GCN, etc.) and datasets           |
 | **Federated Continual Learning** | Specialized for node classification in continual, federated environments |
 
-</div>
 
 ## ⚒️ Installation
 
@@ -112,14 +108,12 @@ python main.py \
 
 ### 💡 Important Notes
 
-<div align="center">
 
 | ⚙️ Configuration         | 📝 Details                                                                                                                                |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | **Custom Options**   | Configure additional parameters via `args.py`<br />• `reduction_rate`, `expert_select`<br />• `node_reduction_rate`, `k_list` |
 | **Dataset Location** | Datasets stored in `datasets/raw_data/` by default <br />• Override with `--dataset_dir` flag                                        |
 
-</div>
 
 ## ⚙️ Key Hyperparameters
 
@@ -163,7 +157,6 @@ python main.py \
 
 ### 📁 File System Configuration
 
-<div align="center">
 
 | Path                | Default                 | Override          |
 | ------------------- | ----------------------- | ----------------- |
@@ -171,7 +164,6 @@ python main.py \
 | **Logs**      | `logs/`               | `--logs_dir`    |
 | **Task Type** | `node_classification` | `--task`        |
 
-</div>
 
 ## 📖 Project Layout
 
@@ -202,7 +194,6 @@ MOTION/
 
 ### 📁 Key Directories Overview
 
-<div align="center">
 
 | Directory                | Purpose                       | Key Files                    |
 | ------------------------ | ----------------------------- | ---------------------------- |
@@ -213,7 +204,6 @@ MOTION/
 | **`utils/`**     | Helper utilities              | Logging, orchestration       |
 | **`logs/`**      | Experiment outputs            | Checkpoints, results         |
 
-</div>
 
 ## 📌 Citation
 
