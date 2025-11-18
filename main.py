@@ -7,3 +7,4 @@ if args.seed is not None:
     set_random_seed(args.seed)
 task = TaskFlow(args)
 task.run()
+
